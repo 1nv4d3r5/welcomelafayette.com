@@ -1,0 +1,118 @@
+<?php
+namespace Welcomelafayette\Model;
+
+use Aura\SqlQuery\QueryFactory;
+use Aura\Sql\ExtendedPdo;
+use Welcomelafayette\Lib\DBAL;
+use Welcomelafayette\Lib\Config;
+
+/**
+ * this is really a Database abstraction layer, not a "model" per se.
+ */
+class Organization extends DBAL
+{
+    public $DB_TYPE = 'sqlite';
+    public $DB_TABLE = 'organization';
+
+    /**
+     * returns a single record by ID
+     * @param  int   $id
+     * @return array
+     */
+    public function getById($id)
+    {
+        $select = $this->makeQueryFactory()->newSelect();
+        $select->from($this->DB_TABLE)
+            ->cols(array(
+                'id',
+                'name',
+                'address1',
+                'address2',
+                'city',
+                'state',
+                'zip',
+                'phone',
+                'description',
+                'img_url',
+                'twitter',
+                'facebook_url',
+                'website_url',
+                'date_created',
+                'approved',
+            ))
+            ->where('id = :id')
+            ->bindValue('id', $id);
+        $sth = $this->sendQuery($select);
+        return $sth->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function getAll($limit = 10, $skip = 0)
+    {
+        $select = $this->makeQueryFactory()->newSelect();
+        $select->from($this->DB_TABLE)
+            ->cols(array(
+                'id',
+                'name',
+                'address1',
+                'address2',
+                'city',
+                'state',
+                'zip',
+                'phone',
+                'description',
+                'img_url',
+                'twitter',
+                'facebook_url',
+                'website_url',
+                'date_created',
+                'approved',
+            ))
+            ->orderBy(array('sort_order ASC'))
+            ->limit($limit)
+            ->offset($skip);
+
+        $sth = $this->sendQuery($select);
+
+        $rows = array();
+        while($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    /**
+     * saving not allowed
+     * @param  array  $record_data
+     * @return void
+     * @throws Exception
+     */
+    public function save(array $record_data)
+    {
+        $insert = $this->makeQueryFactory()->newInsert();
+        $insert->into($this->DB_TABLE)
+            ->cols(array(
+                'name' => $record_data['name'],
+                'address1' => $record_data['address1'],
+                'address2' => $record_data['address2'],
+                'city' => $record_data['city'],
+                'state' => $record_data['state'],
+                'zip' => $record_data['zip'],
+                'phone' => $record_data['phone'],
+                'description' => $record_data['description'],
+                'img_url' => $record_data['img_url'],
+                'twitter' => $record_data['twitter'],
+                'facebook_url' => $record_data['facebook_url'],
+                'website_url' => $record_data['website_url'],
+                'approved' => $record_data['approved'],
+            ))
+            ->set('date_created', 'datetime(\'now\')');
+
+        $sth = $this->sendQuery($insert);
+
+        // get the last insert ID
+        $name = $insert->getLastInsertIdName('id');
+        $id = $this->extendedPdo->lastInsertId($name);
+
+        return $id;
+    }
+}

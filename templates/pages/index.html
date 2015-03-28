@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{% if page_title is defined %}: {{page_title}}{% endif %}{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h2>WelcomeLafayette.com</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 large-6 columns">
+            <a href="/submit" class="button">Submit</a>
+        </div>
+        <div class="small-12 large-6 columns">
+            <a href="/search" class="button">Search</a>
+        </div>
+    </div>
+
+{% endblock %}
