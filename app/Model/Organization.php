@@ -46,7 +46,23 @@ class Organization extends DBAL
         return $sth->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function getAll($limit = 10, $skip = 0)
+    /**
+     * @param int $limit
+     * @param int $skip
+     * @return array
+     */
+    public function getAllApproved($limit = 10, $skip = 0)
+    {
+        return $this->getAll($limit, $skip, ['approved' => 1]);
+    }
+
+    /**
+     * @param int $limit
+     * @param int $skip
+     * @param array $where
+     * @return array
+     */
+    public function getAll($limit = 10, $skip = 0, array $where = [])
     {
         $select = $this->makeQueryFactory()->newSelect();
         $select->from($this->DB_TABLE)
@@ -70,6 +86,10 @@ class Organization extends DBAL
             ->orderBy(array('sort_order ASC'))
             ->limit($limit)
             ->offset($skip);
+
+        foreach ($where as $col => $val) {
+            $select->where("$col = :{$col}", $val);
+        }
 
         $sth = $this->sendQuery($select);
 

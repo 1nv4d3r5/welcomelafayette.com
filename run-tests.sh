@@ -3,10 +3,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # recreate sqlite db
 echo "deleting testing db"
-rm ./data/cbttool_testing.sqlite3;
+rm ./data/welcomelafayette_testing.sqlite3;
 
 echo "creating testing db"
-sqlite3 ./data/cbttool_testing.sqlite3 "select ''";
+sqlite3 ./data/welcomelafayette_testing.sqlite3 "select ''";
 
 # run migrations
 echo "running migrations"

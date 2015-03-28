@@ -3,7 +3,7 @@ namespace Welcomelafayette\Lib;
 
 use Aura\SqlQuery\QueryFactory;
 use Aura\Sql\ExtendedPdo;
-use Welcomelafayette\Lib\Config;
+use WelcomeLafayette\Lib\Config;
 
 /**
  * a Database Abstraction Layer
@@ -14,7 +14,7 @@ abstract class DBAL
     public $DB_TABLE = '___TABLE_NAME___';
 
     /**
-     * @var Welcomelafayette\Lib\Config
+     * @var Config
      */
     public $config;
 
@@ -25,7 +25,7 @@ abstract class DBAL
     }
 
     /**
-     * @return Aura\SqlQuery\QueryFactory
+     * @return QueryFactory
      */
     public function makeQueryFactory()
     {
@@ -56,10 +56,12 @@ abstract class DBAL
     /**
      * return an array of rows.
      * @param  integer $limit default 10
-     * @param  integer $skip  default 0
+     * @param  integer $skip default 0
+     * @param  array $where an array of column/val pairs for matching
      * @return array
+     * @throws Exception
      */
-    public function getAll($limit = 10, $skip = 0)
+    public function getAll($limit = 10, $skip = 0, array $where = [])
     {
         $select = $this->makeQueryFactory()->newSelect();
         throw new Exception("Not Yet Implemented");
