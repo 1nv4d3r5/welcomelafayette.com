@@ -1,7 +1,5 @@
-CBTTool
+WelcomeLafayette.com
 ===========
-
-A simple web-based Cognitive Behavior Therapy tool
 
 ## Setup
 
