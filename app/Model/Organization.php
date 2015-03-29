@@ -32,6 +32,7 @@ class Organization extends DBAL
                 'state',
                 'zip',
                 'phone',
+                'email',
                 'description',
                 'img_url',
                 'twitter',
@@ -75,6 +76,7 @@ class Organization extends DBAL
                 'state',
                 'zip',
                 'phone',
+                'email',
                 'description',
                 'img_url',
                 'twitter',
@@ -118,12 +120,12 @@ class Organization extends DBAL
                 'state' => $record_data['state'],
                 'zip' => $record_data['zip'],
                 'phone' => $record_data['phone'],
+                'email' => $record_data['email'],
                 'description' => $record_data['description'],
                 'img_url' => $record_data['img_url'],
                 'twitter' => $record_data['twitter'],
                 'facebook_url' => $record_data['facebook_url'],
                 'website_url' => $record_data['website_url'],
-                'approved' => $record_data['approved'],
             ))
             ->set('date_created', 'datetime(\'now\')');
 
@@ -134,5 +136,16 @@ class Organization extends DBAL
         $id = $this->extendedPdo->lastInsertId($name);
 
         return $id;
+    }
+
+    /**
+     * @param $id
+     */
+    public function approve($id)
+    {
+        $update = $this->makeQueryFactory()->newUpdate();
+        $update->table($this->DB_TABLE)
+            ->set('approved', 1);
+        $sth = $this->sendQuery($update);
     }
 }

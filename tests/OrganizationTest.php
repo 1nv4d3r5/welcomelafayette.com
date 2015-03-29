@@ -56,6 +56,7 @@ class OrganizationTest extends PHPUnit_Framework_TestCase
                 'state' => $faker->state,
                 'zip' => $faker->postcode,
                 'phone' => $faker->phoneNumber,
+                'email' => $faker->companyEmail,
                 'description' => $faker->paragraph(7),
                 'img_url' => $faker->imageUrl,
                 'twitter' => $faker->word,
@@ -86,6 +87,7 @@ class OrganizationTest extends PHPUnit_Framework_TestCase
         $this->assertSame($expected_vals['state'], $record['state']);
         $this->assertSame($expected_vals['zip'], $record['zip']);
         $this->assertSame($expected_vals['phone'], $record['phone']);
+        $this->assertSame($expected_vals['email'], $record['email']);
         $this->assertSame($expected_vals['description'], $record['description']);
         $this->assertSame($expected_vals['img_url'], $record['img_url']);
         $this->assertSame($expected_vals['twitter'], $record['twitter']);

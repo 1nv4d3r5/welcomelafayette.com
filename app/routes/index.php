@@ -4,21 +4,103 @@ use Welcomelafayette\Model\Thoughtrecord;
 
 $app->error(function (\Exception $e) use ($app) {
     $app->log->addError("Exception thrown: " . $e->getMessage());
-    $app->render('pages/error.html', 500);
+    $app->render('pages/error.html.twig', 500);
 });
 
 $app->get('/', function () use ($app) {
-    $app->render('pages/index.html', array());
+    $app->render('pages/index.html.twig', array());
 });
 
 $app->get('/search', function () use ($app) {
-    $app->render('pages/search.html', array());
+    $app->render('pages/search.html.twig', array());
 });
 
 $app->get('/submit', function () use ($app) {
-    $app->render('pages/submit.html', array());
+    $app->render('pages/submit.html.twig', array());
 });
 
 $app->post('/submit', function () use ($app) {
-    $app->render('pages/submit.html', array());
+    var_dump($_POST);
+    var_dump($_FILES);
+
+    $form_errors = null;
+    $v = new Valitron\Validator($_POST);
+    $v->rule('required', [
+        'name',
+        'address1',
+        'city',
+        'state',
+        'zip',
+        'phone',
+        'email',
+        'description'
+    ]);
+    $v->rule('email', 'email');
+    $v->rule('url', ['facebook_url', 'website_url']);
+    if (!$v->validate()) {
+        $form_errors = $v->errors();
+    }
+
+    /**
+     * handle file upload
+     */
+    $img_url = null;
+    $img_errors = null;
+    if (!empty($_FILES['img'])) {
+        $storage = new \Upload\Storage\FileSystem($app->config('org.image.uploads'));
+        $file = new \Upload\File('img', $storage);
+        $file->setName(md5(uniqid('', true)));
+        $file->addValidations([
+            new \Upload\Validation\Mimetype([
+                'image/png',
+                'image/gif',
+                'image/jpeg',
+                'image/jpg'
+            ]),
+            new \Upload\Validation\Size('5M'),
+        ]);
+        try {
+            // Success!
+            $file->upload();
+            $img_url = "/org_images/" . $file->getNameWithExtension();
+            var_dump($img_url);
+            $_POST['img_url'] = $img_url;
+        } catch (\Exception $e) {
+            // Fail!
+            $img_errors = $file->getErrors();
+        }
+    }
+
+    if ($img_errors || $form_errors) {
+        $app->render('pages/submit.html.twig', [
+            'img_errors' => $img_errors,
+            'form_errors' => $form_errors
+        ]);
+    } else {
+        $org = new \Welcomelafayette\Model\Organization($app->getConfig());
+        $input = filter_input_array(
+            INPUT_POST,
+            [
+                'name' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'address1' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'address2' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'city' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'state' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'zip' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'phone' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'email' => FILTER_SANITIZE_EMAIL,
+                'description' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'twitter' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'facebook_url' => FILTER_SANITIZE_URL,
+                'website_url' => FILTER_SANITIZE_URL,
+            ],
+            true
+        );
+        $input = $input + ['img_url' => $img_url];
+
+        $new_id = $org->save($input + ['img_url' => $img_url]);
+        var_dump($input, $new_id);
+        //$app->flash('flash_info', 'Submission received!');
+        //$app->redirect('/');
+    }
 });

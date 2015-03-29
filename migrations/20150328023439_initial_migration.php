@@ -15,13 +15,14 @@ class InitialMigration extends AbstractMigration
             ->addColumn('state', 'text')
             ->addColumn('zip', 'text')
             ->addColumn('phone', 'text')
+            ->addColumn('email', 'text')
             ->addColumn('description', 'text')
             ->addColumn('img_url', 'text')
             ->addColumn('twitter', 'text')
             ->addColumn('facebook_url', 'text')
             ->addColumn('website_url', 'text')
             ->addColumn('date_created', 'datetime')
-            ->addColumn('approved', 'boolean')
+            ->addColumn('approved', 'boolean', ['default' => 0])
             ->create();
     }
 }

@@ -1,0 +1,147 @@
+{% extends "layouts/base.html.twig" %}
+
+{% block title %}{% if page_title is defined %}: {{page_title}}{% endif %}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>Submit your business or organization</h1>
+        </div>
+    </div>
+    <form enctype="multipart/form-data" action="/submit" method="POST">
+        <div class="row">
+            <div class="small-12 large-8 columns">
+                <div class="row">
+                    <div class="small-12 columns">
+                        <label>Organization Name
+                            <input type="text" name="name" placeholder="Organization Name" required>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 columns">
+                        <label>Address
+                            <input type="text" name="address1" placeholder="Address Line 1" required>
+                            <input type="text" name="address2" placeholder="Address Line 2">
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 large-6 columns">
+                        <label>City
+                            <input type="text" name="city" placeholder="City" required>
+                        </label>
+                    </div>
+                    <div class="small-12 large-2 columns">
+                        <label>State
+                            <input type="text" name="state" placeholder="State" value="IN" required>
+                        </label>
+                    </div>
+                    <div class="small-12 large-4 columns">
+                        <label>ZIP
+                            <input type="text" name="zip" placeholder="00000-0000" required
+                                   pattern="(\d{5}([\-]\d{4})?)"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 large-6 columns">
+                        <label>Phone Number
+                            <input type="tel" name="phone" placeholder="765-555-0000" required
+                                   maxlength="12" pattern="\d{3}[\-]\d{3}[\-]\d{4}"/>
+                        </label>
+                    </div>
+
+                    <div class="small-12 large-6 columns">
+                        <label>E-mail
+                            <input type="email" name="email" placeholder="foo@bar.baz" required>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 large-4 columns">
+                        <div class="row collapse">
+                            <label>Twitter</label>
+                                <div class="small-1 columns">
+                                    <span class="prefix">@</span>
+                                </div>
+                                <div class="small-11 columns">
+                                    <input type="text" name="twitter" id="twitter" placeholder="twitter_user" pattern="^[A-Za-z0-9_]{1,15}$">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="small-12 large-4 columns">
+                        <label>Facebook URL
+                            <input type="url" name="facebook_url" placeholder="http://facebook.com/YourPage">
+                        </label>
+                    </div>
+                    <div class="small-12 large-4 columns">
+                        <label>Website URL
+                            <input type="url" name="website_url" placeholder="http://yourdomain.foo">
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-12 large-12 columns">
+                        <label>Business/Organization Description
+                            <textarea name="description" placeholder="Please describe your organization" rows="6"
+                                      required></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="small-12 large-4 columns">
+                <h3>Photo/Logo</h3>
+                <input type="file" name="img" id="img">
+                <div id="fileInfo"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <input type="submit" class="button" value="Submit" accept="image/*">
+            </div>
+        </div>
+
+
+    </form>
+{% endblock %}
+
+{% block post_script_load %}
+    <script>
+        $(document).ready(function() {
+            $('#img').on('change', function(e) {
+                if (window.File && window.FileReader && window.FileList && window.Blob) {
+                    var files = e.target.files;
+
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        // if the file is not an image, continue
+                        if (!file.type.match('image.*')) {
+                            continue;
+                        }
+
+
+                        var d = document.getElementById("fileInfo");
+                        var list = document.createElement("div");
+                        d.appendChild(list);
+                        for (var i = 0; i < files.length; i++) {
+                            var li = document.createElement("div");
+                            list.appendChild(li);
+
+                            var img = document.createElement("img");
+                            img.src = window.URL.createObjectURL(files[i]);
+                            img.height = 60;
+                            img.onload = function() {
+                                window.URL.revokeObjectURL(this.src);
+                            }
+                            li.appendChild(img);
+                            var info = document.createElement("span");
+                            info.innerHTML = files[i].name + ": " + files[i].size + " bytes";
+                            li.appendChild(info);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
