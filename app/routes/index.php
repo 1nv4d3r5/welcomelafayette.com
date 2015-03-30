@@ -3,7 +3,7 @@ use Welcomelafayette\Model\Thinkingmistake;
 use Welcomelafayette\Model\Thoughtrecord;
 
 $app->error(function (\Exception $e) use ($app) {
-    $app->log->addError("Exception thrown: " . $e->getMessage());
+    $app->log->addError("Exception thrown: " . $e);
     $app->render('pages/error.html.twig', ['error_code'=>500]);
 });
 
