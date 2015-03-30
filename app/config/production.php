@@ -5,7 +5,7 @@ return array(
     "debug" => false,
     "log.enabled" => false,
     "cookies.encrypt" => true,
-    "cookies.secure" => true,
+    "cookies.secure" => false,
     "cookies.httponly" => true,
     "twig.debug" => false,
 

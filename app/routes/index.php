@@ -96,6 +96,6 @@ $app->post('/submit', function () use ($app) {
 
         $new_id = $org->save($input + ['img_url' => $img_url]);
         $app->flash('info', 'Submission received! It will be reviewed for approval. Thanks!');
-        $app->redirect('/');
+        $app->redirect('/submit');
     }
 });
