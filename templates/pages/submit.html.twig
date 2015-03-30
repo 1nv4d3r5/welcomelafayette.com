@@ -10,6 +10,7 @@
     <div class="row">
         <div class="small-12 columns">
             <h1>Submit your business or organization</h1>
+            <p><em>Note: Please only submit businesses or organizations you represent!</em></p>
         </div>
     </div>
 
@@ -30,14 +31,14 @@
             <div class="small-12 large-8 columns">
                 <div class="row">
                     <div class="small-12 columns">
-                        <label><i class="fa fa-home"></i> Organization Name
+                        <label><i class="fa fa-home"></i> Organization Name <span class="form-required">*</span>
                             <input type="text" name="name" placeholder="Organization Name" required>
                         </label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="small-12 columns">
-                        <label><i class="fa fa-road"></i> Address
+                        <label><i class="fa fa-road"></i> Address <span class="form-required">*</span>
                             <input type="text" name="address1" placeholder="Address Line 1" required>
                             <input type="text" name="address2" placeholder="Address Line 2">
                         </label>
@@ -45,17 +46,17 @@
                 </div>
                 <div class="row">
                     <div class="small-12 large-6 columns">
-                        <label><i class="fa fa-building"></i> City
+                        <label><i class="fa fa-building"></i> City <span class="form-required">*</span>
                             <input type="text" name="city" placeholder="City" required>
                         </label>
                     </div>
                     <div class="small-12 large-2 columns">
-                        <label><i class="fa fa-flag"></i> State
+                        <label><i class="fa fa-flag"></i> State <span class="form-required">*</span>
                             <input type="text" name="state" placeholder="State" value="IN" required>
                         </label>
                     </div>
                     <div class="small-12 large-4 columns">
-                        <label><i class="fa fa-map-marker"></i> ZIP
+                        <label><i class="fa fa-map-marker"></i> ZIP <span class="form-required">*</span>
                             <input type="text" name="zip" placeholder="00000-0000" required
                                    pattern="(\d{5}([\-]\d{4})?)"/>
                         </label>
@@ -63,14 +64,14 @@
                 </div>
                 <div class="row">
                     <div class="small-12 large-6 columns">
-                        <label><i class="fa fa-phone"></i> Phone Number
+                        <label><i class="fa fa-phone"></i> Phone Number <span class="form-required">*</span>
                             <input type="tel" name="phone" placeholder="765-555-0000" required
                                    maxlength="12" pattern="\d{3}[\-]\d{3}[\-]\d{4}"/>
                         </label>
                     </div>
 
                     <div class="small-12 large-6 columns">
-                        <label><i class="fa fa-envelope"></i> E-mail
+                        <label><i class="fa fa-envelope"></i> E-mail <span class="form-required">*</span>
                             <input type="email" name="email" placeholder="foo@bar.baz" required>
                         </label>
                     </div>
@@ -100,7 +101,7 @@
                 </div>
                 <div class="row">
                     <div class="small-12 large-12 columns">
-                        <label><i class="fa fa-file-text"></i> Business/Organization Description
+                        <label><i class="fa fa-file-text"></i> Business/Organization Description <span class="form-required">*</span>
                             <textarea name="description" placeholder="Please describe your organization" rows="6"
                                       required></textarea>
                         </label>
