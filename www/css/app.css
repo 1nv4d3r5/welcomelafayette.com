@@ -1,3 +1,60 @@
-.log-textarea {
-    min-height: 6em;
+body {
+    background-color: #CCCCCC;
+}
+
+.splash-row {
+    margin-bottom: 1em;
+    margin:0;
+    padding: 1em 0 0 0;
+    max-width:100%;
+    position:relative;
+}
+.splash-image {
+    background-image: url('/img/splash-courthouse.jpg');
+    background-size: auto auto;
+    background-attachment: scroll;
+    background-position: center -500px;
+    background-origin: border-box;
+    height:350px;
+    position:relative;
+    padding-top:0;
+}
+
+.splash-image .columns {
+    position: absolute;
+    bottom: 0px;
+    background-color: rgba(000,000,000,.3);
+}
+
+.splash-image h1, .splash-image h2 {
+    color: white;
+    text-shadow: 1px 1px 0 black;
+    margin:0;
+    /*font-size:5em;*/
+}
+.splash-image h2 {
+    font-size:1.5em;
+    margin-bottom: .2em
+}
+
+.navigation-row {
+    background-color: #262626;
+}
+
+.footer-row {
+    padding-top:1em;
+    border-top: 5px solid #CCCCCC;
+    background-color: #333333;
+    max-width: 100%;
+}
+
+.footer-row ul {
+    list-style: square;
+    /*text-transform: uppercase;*/
+    color: #CCCCCC;
+    font-size: .9em;
+    font-weight: bold;
+}
+.footer-row ul a:link, .footer-row ul a:visited, .footer-row ul a:active {
+    color: #b6edff;
 }
