@@ -4,19 +4,19 @@ use Welcomelafayette\Model\Thoughtrecord;
 
 $app->error(function (\Exception $e) use ($app) {
     $app->log->addError("Exception thrown: " . $e->getMessage());
-    $app->render('pages/error.html.twig', 500);
+    $app->render('pages/error.html.twig', ['error_code'=>500]);
 });
 
 $app->get('/', function () use ($app) {
-    $app->render('pages/index.html.twig', array());
+    $app->render('pages/index.html.twig', []);
 });
 
 $app->get('/search', function () use ($app) {
-    $app->render('pages/search.html.twig', array());
+    $app->render('pages/search.html.twig', []);
 });
 
 $app->get('/submit', function () use ($app) {
-    $app->render('pages/submit.html.twig', array());
+    $app->render('pages/submit.html.twig', []);
 });
 
 $app->post('/submit', function () use ($app) {
@@ -99,8 +99,7 @@ $app->post('/submit', function () use ($app) {
         $input = $input + ['img_url' => $img_url];
 
         $new_id = $org->save($input + ['img_url' => $img_url]);
-        var_dump($input, $new_id);
-        //$app->flash('flash_info', 'Submission received!');
-        //$app->redirect('/');
+        $app->flash('flash_info', 'Submission received!');
+        $app->redirect('/');
     }
 });
