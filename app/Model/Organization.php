@@ -96,7 +96,7 @@ class Organization extends DBAL
         $sth = $this->sendQuery($select);
 
         $rows = array();
-        while($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
             $rows[] = $row;
         }
         return $rows;
@@ -126,6 +126,7 @@ class Organization extends DBAL
                 'twitter' => $record_data['twitter'],
                 'facebook_url' => $record_data['facebook_url'],
                 'website_url' => $record_data['website_url'],
+                'approved' => (int)(bool)$record_data['approved'],
             ))
             ->set('date_created', 'datetime(\'now\')');
 

@@ -9,7 +9,6 @@
 use Welcomelafayette\Lib\Config;
 use Welcomelafayette\Model\Organization;
 
-
 class OrganizationTest extends PHPUnit_Framework_TestCase
 {
     const GENERATED_RECORDS_COUNT = 100;
@@ -62,7 +61,7 @@ class OrganizationTest extends PHPUnit_Framework_TestCase
                 'twitter' => $faker->word,
                 'facebook_url' => $faker->url,
                 'website_url' => $faker->url,
-                'approved' => 1,
+                'approved' => $faker->numberBetween(0, 1),
             ];
             $id = $org->save($this_record_vals);
             $record_vals[] = [$id, $this_record_vals];
