@@ -11,24 +11,14 @@
     </head>
     <body>
 
-        {#<nav class="top-bar" data-topbar role="navigation">#}
-            {#<ul class="title-area">#}
-                {#<li class="name">#}
-                    {#<h1><a href="{{siteUrl('/')}}">WelcomeLafayette</a></h1>#}
-                {#</li>#}
-                 {#<!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->#}
-                {#<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>#}
-            {#</ul>#}
+        {% block topbar %}{% endblock %}
 
-            {#<section class="top-bar-section">#}
-                {#<!-- Right Nav Section -->#}
-                {#<ul class="right">#}
-                    {#<li class="active"><a href="/search">Search</a></li>#}
-                    {#<li class="divider"></li>#}
-                    {#<li class="active"><a href="/submit">Submit</a></li>#}
-                {#</ul>#}
-            {#</section>#}
-        {#</nav>#}
+        {% if flash.info %}
+            <div class="flash-info panel">{{flash.info}}</div>
+        {% endif %}
+        {% if flash.warning %}
+            <div class="flash-warning panel">{{flash.warning}}</div>
+        {% endif %}
 
         {% block body %}
         {% endblock %}

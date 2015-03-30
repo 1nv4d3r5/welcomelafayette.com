@@ -1,5 +1,9 @@
 {% extends "layouts/base.html.twig" %}
 
+{% block topbar %}
+    {% include "snippets/topbar.html.twig" %}
+{% endblock %}
+
 {% block title %}{% if page_title is defined %}: {{page_title}}{% endif %}{% endblock %}
 
 {% block body %}
@@ -8,6 +12,19 @@
             <h1>Submit your business or organization</h1>
         </div>
     </div>
+
+    {% if form_errors %}
+        <div class="row">
+            <div class="small-12 columns panel">
+                <ul>
+                {% for error in form_errors %}
+                    <li>{{error}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
     <form enctype="multipart/form-data" action="/submit" method="POST">
         <div class="row">
             <div class="small-12 large-8 columns">
@@ -92,6 +109,17 @@
             </div>
             <div class="small-12 large-4 columns">
                 <h3><i class="fa fa-photo"></i> Photo/Logo</h3>
+                {% if img_errors %}
+                    <div class="row">
+                        <div class="small-12 columns panel">
+                            <ul>
+                            {% for error in form_errors %}
+                                <li>{{error}}</li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
                 <input type="file" name="img" id="img">
                 <div id="fileInfo"></div>
             </div>

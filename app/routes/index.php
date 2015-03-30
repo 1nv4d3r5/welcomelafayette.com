@@ -20,9 +20,6 @@ $app->get('/submit', function () use ($app) {
 });
 
 $app->post('/submit', function () use ($app) {
-    var_dump($_POST);
-    var_dump($_FILES);
-
     $form_errors = null;
     $v = new Valitron\Validator($_POST);
     $v->rule('required', [
@@ -46,7 +43,7 @@ $app->post('/submit', function () use ($app) {
      */
     $img_url = null;
     $img_errors = null;
-    if (!empty($_FILES['img'])) {
+    if (!empty($_FILES['img']) && !empty($_FILES['img']['name'])) {
         $storage = new \Upload\Storage\FileSystem($app->config('org.image.uploads'));
         $file = new \Upload\File('img', $storage);
         $file->setName(md5(uniqid('', true)));
@@ -63,7 +60,6 @@ $app->post('/submit', function () use ($app) {
             // Success!
             $file->upload();
             $img_url = "/org_images/" . $file->getNameWithExtension();
-            var_dump($img_url);
             $_POST['img_url'] = $img_url;
         } catch (\Exception $e) {
             // Fail!
@@ -96,10 +92,10 @@ $app->post('/submit', function () use ($app) {
             ],
             true
         );
-        $input = $input + ['img_url' => $img_url];
+        $input = $input + ['img_url' => $img_url, 'approved' => 0];
 
         $new_id = $org->save($input + ['img_url' => $img_url]);
-        $app->flash('flash_info', 'Submission received!');
+        $app->flash('info', 'Submission received! It will be reviewed for approval. Thanks!');
         $app->redirect('/');
     }
 });

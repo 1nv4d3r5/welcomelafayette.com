@@ -1,5 +1,5 @@
 body {
-    background-color: #CCCCCC;
+    background-color: #FFFFFF;
 }
 
 .splash-row {
@@ -39,6 +39,11 @@ body {
 
 .navigation-row {
     background-color: #262626;
+    border-bottom: 5px solid #CCCCCC;
+}
+
+.description-row {
+    margin:2em 0 3em;
 }
 
 .footer-row {

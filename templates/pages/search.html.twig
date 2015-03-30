@@ -1,0 +1,24 @@
+{% extends "layouts/base.html.twig" %}
+
+{% block topbar %}
+    {% include "snippets/topbar.html.twig" %}
+{% endblock %}
+
+{% block title %}{% if page_title is defined %}: {{page_title}}{% endif %}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="small-12 columns">
+            <h1>Search</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            <p>We are still building our directory. Check back soon!</p>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block post_script_load %}
+{% endblock %}
