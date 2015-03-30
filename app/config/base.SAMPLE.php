@@ -23,4 +23,5 @@ return array(
     "csrf.secret" => "FIX_ME",
 
     "org.image.uploads" => "{$_ENV['CONFIG_APP_BASE_PATH']}/www/org_images/",
+    "google_analytics_code" => "XXXXXXXXXXX",
 );

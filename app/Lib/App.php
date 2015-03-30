@@ -34,4 +34,10 @@ class App extends Slim
         $c->setFromArray($this->container['settings']);
         return $c;
     }
+
+    public function render($template, $data = [], $status = null)
+    {
+        $data['google_analytics_code'] = $this->config('google_analytics_code');
+        return parent::render($template, $data, $status);
+    }
 }
