@@ -73,20 +73,25 @@ $app->post('/submit', function () use ($app) {
             'form_errors' => $form_errors
         ]);
     } else {
+        $strip_tags_filter = [
+            'filter' => FILTER_SANITIZE_STRING,
+            'flags' => FILTER_FLAG_NO_ENCODE_QUOTES
+        ];
+
         $org = new \Welcomelafayette\Model\Organization($app->getConfig());
         $input = filter_input_array(
             INPUT_POST,
             [
-                'name' => FILTER_SANITIZE_SPECIAL_CHARS,
-                'address1' => FILTER_SANITIZE_SPECIAL_CHARS,
-                'address2' => FILTER_SANITIZE_SPECIAL_CHARS,
-                'city' => FILTER_SANITIZE_SPECIAL_CHARS,
-                'state' => FILTER_SANITIZE_SPECIAL_CHARS,
-                'zip' => FILTER_SANITIZE_SPECIAL_CHARS,
-                'phone' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'name' => $strip_tags_filter,
+                'address1' => $strip_tags_filter,
+                'address2' => $strip_tags_filter,
+                'city' => $strip_tags_filter,
+                'state' => $strip_tags_filter,
+                'zip' => $strip_tags_filter,
+                'phone' => $strip_tags_filter,
                 'email' => FILTER_SANITIZE_EMAIL,
-                'description' => FILTER_SANITIZE_SPECIAL_CHARS,
-                'twitter' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'description' => $strip_tags_filter,
+                'twitter' => $strip_tags_filter,
                 'facebook_url' => FILTER_SANITIZE_URL,
                 'website_url' => FILTER_SANITIZE_URL,
             ],
