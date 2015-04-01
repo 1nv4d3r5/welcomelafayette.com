@@ -36,35 +36,42 @@ class OrganizationTest extends PHPUnit_Framework_TestCase
     }
 
 
+    public function generateOrgRecord()
+    {
+        $faker = Faker\Factory::create();
+        $org = new Organization($this->getConfig());
+
+        $this_record_vals = [
+            'name' => $faker->company,
+            'address1' => $faker->streetAddress,
+            'address2' => $faker->buildingNumber,
+            'city' => $faker->city,
+            'state' => $faker->state,
+            'zip' => $faker->postcode,
+            'phone' => $faker->phoneNumber,
+            'email' => $faker->companyEmail,
+            'description' => $faker->paragraph(7),
+            'img_url' => $faker->imageUrl,
+            'twitter' => $faker->word,
+            'facebook_url' => $faker->url,
+            'website_url' => $faker->url,
+            'approved' => $faker->numberBetween(0, 1),
+        ];
+        $id = $org->save($this_record_vals);
+        return [$id, $this_record_vals];
+    }
+
+
     /**
      * @return array
      */
     public function generatedRecords()
     {
-        $faker = Faker\Factory::create();
-        $org = new Organization($this->getConfig());
         $x = 0;
         $record_vals = [];
         while ($x < self::GENERATED_RECORDS_COUNT) {
             $x++;
-            $this_record_vals = [
-                'name' => $faker->company,
-                'address1' => $faker->streetAddress,
-                'address2' => $faker->buildingNumber,
-                'city' => $faker->city,
-                'state' => $faker->state,
-                'zip' => $faker->postcode,
-                'phone' => $faker->phoneNumber,
-                'email' => $faker->companyEmail,
-                'description' => $faker->paragraph(7),
-                'img_url' => $faker->imageUrl,
-                'twitter' => $faker->word,
-                'facebook_url' => $faker->url,
-                'website_url' => $faker->url,
-                'approved' => $faker->numberBetween(0, 1),
-            ];
-            $id = $org->save($this_record_vals);
-            $record_vals[] = [$id, $this_record_vals];
+            $record_vals[] = $this->generateOrgRecord();
         }
         return $record_vals;
     }
@@ -94,4 +101,20 @@ class OrganizationTest extends PHPUnit_Framework_TestCase
         $this->assertSame($expected_vals['website_url'], $record['website_url']);
         $this->assertEquals($expected_vals['approved'], $record['approved']);
     }
+
+    public function testGetAll()
+    {
+        $org = new Organization($this->getConfig());
+        $org->getExtendedPdo()->query("DELETE FROM organization");
+
+        $record_vals = [];
+        for ($x = 0; $x < 5; $x++) {
+            $record_vals[] = $this->generateOrgRecord();
+        }
+
+        $rows = $org->getAll();
+
+        $this->assertSame(count($record_vals), count($rows));
+    }
+
 }

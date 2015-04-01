@@ -10,17 +10,33 @@
             <h2>Business and organizations in Greater Lafayette that <strong>welcome everyone</strong></h2>
         </div>
     </div>
+
+
     <div class="row navigation-row splash-row">
         <div class="small-6 large-6 columns right-align">
-            <a href="/search" class="button radius right">Search&nbsp;<i class="fa fa-search"></i></a>
+            <a href="/search" class="button radius right">Directory&nbsp;<i class="fa fa-search"></i></a>
         </div>
         <div class="small-6 large-6 columns left-align">
             <a href="/submit" class="button radius">Submit&nbsp;<i class="fa fa-plus-circle"></i></a>
         </div>
     </div>
+
+    <div class="row new-orgs-row">
+        <h2><i class="fa fa-certificate"></i> Newest additions</h2>
+        {% for org in orgs %}
+            <div class="small-12 medium-6 large-3 columns">
+                <div class="org-box">
+                    <div class="org-box-name"><a href="/show/{{ org.id }}">{{ org.name }}</a></div>
+                    <div class="org-box-citystatezip">{{ org.city }}, {{ org.state }}</div>
+                    <div class="org-box-description">{{ org.description | truncate(75,true) }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
     <div class="row splash-row description-row">
         <div class="small-12 large-8 large-offset-2 columns">
-            <h3><i class="fa fa-info-circle fa-1x"></i> About this site</h3>
+            <h2><i class="fa fa-info-circle"></i> About this site</h2>
             <p>WelcomeLafayette is a directory of business and organizations in Greater Lafayette, Indiana that are committed to
                 welcoming everyone, regardless of religion, age, ethnicity, gender identity or expression, national origin, skin color,
                 sexual orientation, or socio-economic status.

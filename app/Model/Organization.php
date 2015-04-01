@@ -48,22 +48,11 @@ class Organization extends DBAL
     }
 
     /**
-     * @param int $limit
-     * @param int $skip
+     * returns a single record by ID, if approved
+     * @param  int   $id
      * @return array
      */
-    public function getAllApproved($limit = 10, $skip = 0)
-    {
-        return $this->getAll($limit, $skip, ['approved' => 1]);
-    }
-
-    /**
-     * @param int $limit
-     * @param int $skip
-     * @param array $where
-     * @return array
-     */
-    public function getAll($limit = 10, $skip = 0, array $where = [])
+    public function getApprovedById($id)
     {
         $select = $this->makeQueryFactory()->newSelect();
         $select->from($this->DB_TABLE)
@@ -85,12 +74,61 @@ class Organization extends DBAL
                 'date_created',
                 'approved',
             ))
-            ->orderBy(array('sort_order ASC'))
+            ->where('id = :id')
+            ->where('approved = 1')
+            ->bindValue('id', $id);
+        $sth = $this->sendQuery($select);
+        return $sth->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param int $limit
+     * @param int $skip
+     * @return array
+     */
+    public function getAllApproved($limit = 10, $skip = 0, array $order = [])
+    {
+        return $this->getAll($limit, $skip, ['approved' => 1]);
+    }
+
+    /**
+     * @param int $limit
+     * @param int $skip
+     * @param array $where
+     * @param array $order
+     * @return array
+     */
+    public function getAll($limit = 10, $skip = 0, array $where = [], array $order = [])
+    {
+        $select = $this->makeQueryFactory()->newSelect();
+        $select->from($this->DB_TABLE)
+            ->cols(array(
+                'id',
+                'name',
+                'address1',
+                'address2',
+                'city',
+                'state',
+                'zip',
+                'phone',
+                'email',
+                'description',
+                'img_url',
+                'twitter',
+                'facebook_url',
+                'website_url',
+                'date_created',
+                'approved',
+            ))
             ->limit($limit)
             ->offset($skip);
 
         foreach ($where as $col => $val) {
-            $select->where("$col = :{$col}", $val);
+            $select->where("$col = ?", $val);
+        }
+
+        foreach ($order as $col => $direction) {
+            $select->orderBy(array("$col $direction"));
         }
 
         $sth = $this->sendQuery($select);

@@ -9,12 +9,22 @@
 {% block body %}
     <div class="row">
         <div class="small-12 columns">
-            <h1>Search</h1>
+            <h1>Directory</h1>
         </div>
     </div>
     <div class="row">
         <div class="small-12 columns">
-            <p>We are still building our directory. Check back soon!</p>
+            <div class="row new-orgs-row">
+                {% for org in orgs %}
+                    <div class="small-12 medium-6 large-3 columns">
+                        <div class="org-box">
+                            <div class="org-box-name"><a href="/show/{{ org.id }}">{{ org.name }}</a></div>
+                            <div class="org-box-citystatezip">{{ org.city }}, {{ org.state }}</div>
+                            <div class="org-box-description">{{ org.description | truncate(75,true) }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 

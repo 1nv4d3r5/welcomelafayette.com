@@ -1,5 +1,6 @@
 body {
     background-color: #FFFFFF;
+    font-family: "proxima-nova","Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 }
 
 .splash-row {
@@ -43,8 +44,43 @@ body {
     border-bottom: 5px solid #CCCCCC;
 }
 
+.new-orgs-row {
+    margin-top:2em;
+}
+.new-orgs-row h2 {
+    margin-left: .7em;
+}
+.org-box {
+    margin-bottom:1em;
+    border-bottom: 4px solid #a0d3e8;
+    /*background-color: #e1e1e1;*/
+    padding:.5em;
+    min-height:10em;
+    max-height:15em;
+}
+    .org-box-name {
+        font-weight: bold;
+        line-height: 1.1em;
+    }
+    .org-box-citystatezip {
+        margin-top:.3em;
+        font-size:.8em;
+        font-weight:bold;
+    }
+    .org-box-description {
+        margin-top:.3em;
+        font-size:.8em;
+    }
+
 .description-row {
-    margin:2em 0 3em;
+    border-top: 4px solid #333333;
+    background-color: #008CBA;
+    margin:2em 0 0em;
+    color: white;
+    text-shadow: 0px 1px 0 #000000;
+}
+.description-row h2 {
+    color: white;
 }
 
 .footer-row {
@@ -52,6 +88,8 @@ body {
     border-top: 5px solid #CCCCCC;
     background-color: #333333;
     max-width: 100%;
+    text-shadow: 0px 1px 0 #000000;
+
 }
 
 .footer-row ul {
@@ -72,3 +110,42 @@ body {
     text-transform: uppercase;
     font-weight: bold
 }
+
+.show-row {
+    margin-top:3em;
+    margin-bottom: 3em;
+}
+
+.show-name {
+    font-weight: bold;
+    line-height: 1em;
+}
+
+.show-image {
+    border-bottom: 4px solid #a0d3e8;
+}
+
+.contact-info-row {
+    padding-bottom: 1.5em;
+}
+
+.contact-info {
+    color: #666666;
+    font-size:.9em;
+    /*text-transform: uppercase;*/
+    font-weight: bold;
+}
+
+.show-contact-item {
+    display: inline-block;
+    margin-right:.5em;
+}
+
+.description-row {
+    padding-bottom: 1.5em;
+}
+
+.button {
+    text-shadow: 0px 1px 0 #000000;
+}
+

@@ -3,4 +3,4 @@
 /app/config/base.php
 *.sqlite3
 .idea
-/www/org_images/*
+/www/org_images/[!__]*

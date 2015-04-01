@@ -1,0 +1,61 @@
+{% extends "layouts/base.html.twig" %}
+
+{% block topbar %}
+    {% include "snippets/topbar.html.twig" %}
+{% endblock %}
+
+{% block title %}{% if page_title is defined %}: {{page_title}}{% endif %}{% endblock %}
+
+{% block body %}
+    <div class="row show-row">
+        <div class="small-12 large-3 large-offset-2 columns">
+            <div class="row">
+                <div class="small-12 columns">
+                    {% if img_url %}
+                        <img class="show-image" src="/org/images/?p={{img_url|replace({'/org_images/':''})}}&w=400&h=400">
+                    {% else %}
+                        <img class="show-image" src="/org/images/?p=__default.jpg&w=400&h=400">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="small-12 large-5 end columns">
+            <h1 class="show-name">{{name}}</h1>
+            <div class="row contact-info-row">
+                <div class="small-12 columns contact-info">
+                    <div id=" contact-info show-address">
+                         <span class="show-contact-item">{{address1}}</span>
+                        {% if address2 %}
+                            <span class="show-contact-item">{{address2}}</span>
+                        {% endif %}
+                         <span class="show-contact-item">{{city}}, {{state}} {{zip}}</span>
+                    </div>
+                </div>
+                <div class="small-12 columns contact-info">
+                    <span class="show-contact-item"><i class="fa fa-phone"></i> {{phone}}</span>
+                    <span class="show-contact-item"><i class="fa fa-envelope"></i> <a href="mailto:{{email}}">E-mail</a></span>
+                    {% if twitter_url %}
+                        <span class="show-contact-item"><i class="fa fa-twitter"></i> <a href="https://twitter.com/{{twitter}}">@{{twitter}}</a></span>
+                    {% endif %}
+                    {% if facebook_url %}
+                        <span class="show-contact-item"><i class="fa fa-facebook-official"></i> <a href="{{facebook_url}}">Facebook</a></span>
+                    {% endif %}
+                    {% if website_url %}
+                        <span class="show-contact-item"><i class="fa fa-compass"></i> <a href="{{website_url}}">Website</a></span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row show-description-row">
+                <div class="small-12 large-12 columns">
+                    <p>{{description|nl2br}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block post_script_load %}
+{% endblock %}

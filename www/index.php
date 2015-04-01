@@ -1,6 +1,14 @@
 <?php
 
 /**
+ * libs we'll use here
+ */
+use Monolog\Logger;
+use Monolog\Handler\ErrorLogHandler;
+use Welcomelafayette\Lib\App;
+use Welcomelafayette\Lib\Config;
+
+/**
  * edit this if you need to move the www root
  * @var string
  */
@@ -11,13 +19,6 @@ $_ENV['APP_BASE_PATH'] = realpath(dirname(__FILE__) . '/..');
  */
 require "{$_ENV['APP_BASE_PATH']}/vendor/autoload.php";
 
-/**
- * libs we'll use here
- */
-use Monolog\Logger;
-use Monolog\Handler\ErrorLogHandler;
-use Welcomelafayette\Lib\App;
-use Welcomelafayette\Lib\Config;
 
 /**
  * load the config files
@@ -51,11 +52,13 @@ $view->parserOptions = array(
     'debug' => $app->config('twig.debug'),
     'cache' => $app->config('twig.cache_path'),
 );
+
 /**
  * add Twig parser extensions for Slim
  */
 $view->parserExtensions = array(
     new \Slim\Views\TwigExtension(),
+    new Twig_Extensions_Extension_Text(),
     new Twig_Extension_Debug()
 );
 

@@ -37,6 +37,11 @@ abstract class DBAL
         return new ExtendedPdo($this->config->get('db.pdo.connect')); 
     }
 
+    public function getExtendedPdo()
+    {
+        return $this->extendedPdo;
+    }
+
     /**
      * [sendQuery description]
      * @param  Aura\SqlQuery\Common\Select|Aura\SqlQuery\Common\Insert|Aura\SqlQuery\Common\Update|Aura\SqlQuery\Common\Delete $query [description]

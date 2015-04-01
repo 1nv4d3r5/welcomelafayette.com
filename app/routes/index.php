@@ -7,12 +7,20 @@ $app->error(function (\Exception $e) use ($app) {
     $app->render('pages/error.html.twig', ['error_code'=>500]);
 });
 
+$app->notFound(function () use ($app) {
+    $app->render('pages/error.html.twig', ['error_code'=>404, 'error_msg'=>'Not found']);
+});
+
 $app->get('/', function () use ($app) {
-    $app->render('pages/index.html.twig', []);
+    $org = new \Welcomelafayette\Model\Organization($app->getConfig());
+    $orgs = $org->getAll(4, 0, ['approved'=>1], ['date_created'=>'DESC']);
+    $app->render('pages/index.html.twig', ['orgs' => $orgs]);
 });
 
 $app->get('/search', function () use ($app) {
-    $app->render('pages/search.html.twig', []);
+    $org = new \Welcomelafayette\Model\Organization($app->getConfig());
+    $orgs = $org->getAll(50, 0, ['approved'=>1], ['name'=>'ASC']);
+    $app->render('pages/search.html.twig', ['orgs' => $orgs]);
 });
 
 $app->get('/submit', function () use ($app) {
@@ -103,4 +111,25 @@ $app->post('/submit', function () use ($app) {
         $app->flash('info', 'Submission received! It will be reviewed for approval. Thanks!');
         $app->redirect('/submit');
     }
+});
+
+$app->get('/show/:id', function ($id) use ($app) {
+    $org = new \Welcomelafayette\Model\Organization($app->getConfig());
+    $row = $org->getApprovedById((int)$id);
+    if (!$row) {
+        $app->notFound();
+    }
+    $app->render('pages/show.html.twig', $row);
+});
+
+
+$app->get('/org/images/', function () use ($app) {
+    // Setup Glide server
+    $server = League\Glide\ServerFactory::create([
+        'source' => $app->config('org.image.uploads'),
+        'cache' => $app->config('org.image.uploads') . "/modified/",
+        'max_image_size' => 2000*2000,
+    ]);
+
+    $server->outputImage($_GET['p'], ['w' => $_GET['w'], 'h' => $_GET['h']]);
 });
