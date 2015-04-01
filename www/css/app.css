@@ -3,12 +3,14 @@ body {
     font-family: "proxima-nova","Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 }
 
+.row-container {
+    max-width: 100%;
+}
+
 .splash-row {
     margin-bottom: 1em;
-    margin:0;
+    margin:0 auto;
     padding: 1em 0 0 0;
-    max-width:100%;
-    position:relative;
 }
 .splash-image {
     background-image: url('/img/splash-courthouse.jpg');
@@ -19,6 +21,7 @@ body {
     height:350px;
     position:relative;
     padding-top:0;
+    max-width: 100%;
 }
 
 .splash-image .columns {
@@ -38,14 +41,14 @@ body {
     margin-bottom: .2em
 }
 
-.navigation-row {
+.navigation-row-container {
     background-color: #262626;
     border-top: 5px solid #999999;
     border-bottom: 5px solid #CCCCCC;
 }
 
 .new-orgs-row {
-    margin-top:2em;
+    margin:2em auto;
 }
 .new-orgs-row h2 {
     margin-left: .7em;
@@ -72,25 +75,31 @@ body {
         font-size:.8em;
     }
 
-.description-row {
+.description-row-container {
     border-top: 4px solid #333333;
     background-color: #008CBA;
-    margin:2em 0 0em;
+    padding: 2em 0 1em;
+}
+.description-row {
     color: white;
     text-shadow: 0px 1px 0 #000000;
 }
+
 .description-row h2 {
     color: white;
+    margin-bottom:;
 }
 
-.footer-row {
+.footer-row-container {
     padding-top:1em;
     border-top: 5px solid #CCCCCC;
     background-color: #333333;
     max-width: 100%;
-    text-shadow: 0px 1px 0 #000000;
-
+    padding: 2em 0 1em;
 }
+    .footer-row {
+        text-shadow: 0px 1px 0 #000000;
+    }
 
 .footer-row ul {
     list-style: square;

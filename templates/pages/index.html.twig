@@ -3,21 +3,23 @@
 {% block title %}{% if page_title is defined %}: {{page_title}}{% endif %}{% endblock %}
 
 {% block body %}
-
-    <div class="row splash-image splash-row">
-        <div class="small-12 columns">
-            <h1>Welcome<strong>Lafayette</strong></h1>
-            <h2>Business and organizations in Greater Lafayette that <strong>welcome everyone</strong></h2>
+    <div class="row-container">
+        <div class="row splash-image splash-row">
+            <div class="small-12 columns">
+                <h1>Welcome<strong>Lafayette</strong></h1>
+                <h2>Business and organizations in Greater Lafayette that <strong>welcome everyone</strong></h2>
+            </div>
         </div>
     </div>
 
-
-    <div class="row navigation-row splash-row">
-        <div class="small-6 large-6 columns right-align">
-            <a href="/search" class="button radius right">Directory&nbsp;<i class="fa fa-search"></i></a>
-        </div>
-        <div class="small-6 large-6 columns left-align">
-            <a href="/submit" class="button radius">Submit&nbsp;<i class="fa fa-plus-circle"></i></a>
+    <div class="row-container navigation-row-container">
+        <div class="row navigation-row splash-row">
+            <div class="small-6 large-6 columns right-align">
+                <a href="/search" class="button radius right">Directory&nbsp;<i class="fa fa-search"></i></a>
+            </div>
+            <div class="small-6 large-6 columns left-align">
+                <a href="/submit" class="button radius">Submit&nbsp;<i class="fa fa-plus-circle"></i></a>
+            </div>
         </div>
     </div>
 
@@ -34,13 +36,15 @@
         {% endfor %}
     </div>
 
-    <div class="row splash-row description-row">
-        <div class="small-12 large-8 large-offset-2 columns">
-            <h2><i class="fa fa-info-circle"></i> About this site</h2>
-            <p>WelcomeLafayette is a directory of business and organizations in Greater Lafayette, Indiana that are committed to
-                welcoming everyone, regardless of religion, age, ethnicity, gender identity or expression, national origin, skin color,
-                sexual orientation, or socio-economic status.
-            </p>
+    <div class="row-container description-row-container">
+        <div class="row splash-row description-row">
+            <div class="small-12 large-8 large-offset-2 columns">
+                <h2><i class="fa fa-info-circle"></i> About this site</h2>
+                <p>WelcomeLafayette is a directory of business and organizations in Greater Lafayette, Indiana that are committed to
+                    welcoming everyone, regardless of religion, age, ethnicity, gender identity or expression, national origin, skin color,
+                    sexual orientation, or socio-economic status.
+                </p>
+            </div>
         </div>
-    </div>
+    </div> 
 {% endblock %}

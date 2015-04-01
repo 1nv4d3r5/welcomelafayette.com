@@ -29,13 +29,15 @@
         {% endblock %}
 
         {% block footer %}
+        <div class="footer-row-container">
             <div class="row footer-row">
                 <div class="small-12 large-3 large-offset-3 columns">
                     <ul>
                         <li><a href="https://twitter.com/welcomelala"><i class="fa fa-twitter"></i> @WelcomeLala</a></li>
                         <li><a href="mailto:info@welcomelafayette.com"><i class="fa fa-envelope"></i> E-mail us</a></li>
-                        <li>Site created by <a href="http://funkatron.com">Edward Finkler</a></li>
+                        <li>Site by <a href="http://funkatron.com">Edward Finkler</a></li>
                         <li>Photo by <a href="https://www.flickr.com/photos/kdemerly/4635138191/">Karen Demerly</a></li>
+                        <li><a href="https://github.com/funkatron/welcomelafayette.com"><i class="fa fa-github"></i> Source Code</a>
                     </ul>
                 </div>
                 <div class="small-12 large-3 end columns">
@@ -47,6 +49,7 @@
                     </ul>
                 </div>
             </div>
+        </div>
         {% endblock %}
 
         <script src="{{siteUrl('/foundation/js/vendor/jquery.js')}}"></script>
